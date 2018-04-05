@@ -1,37 +1,102 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h2 id="title" class="title">Simple <span>TODO</span> list App</h2>
-    <form action="" id="frmadd">
-        <div id="myDIV" class="header">
-            <h2 style="margin:5px">Search From List</h2>
-            <input type="text" id="mySearch" placeholder="Search Title...">
-            
-          </div>
-    </form>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function(){
+                 //var title = document.getElementById("title");
+            //var spans = document.getElementsByClassName("close");
+            //var lists = document.getElementsByTagName("li");
+            var ul = document.querySelector("ul#myUL");
+            var chkbx = document.querySelector('#myTxt');
+           // var lists = document.querySelectorAll("li");
+            //innerHTML and innerTEXT
+            //title.innerHTML = "Simple <strong class='checked'>Todo App</strong> for Test";
+            //var next = lists.nextElementSibling;
+            //console.log(next.nextElementSibling.nextElementSibling);
+            //title.addEventListener("click", function(e){
+           //   e.target.remove();
+           // })
+           
+          /* lists.forEach(function(el){
+               el.addEventListener('click', function(e){
+                e.target.parentElement.remove();
+               })
+           })*/
+          chkbx.addEventListener('change', function(e){
 
-<ul id="myUL">
-  <li>HTML5 Crash Course in Urdu <span class="close">Delete</span></li>
-  <li>CSS/CSS3 Crash Course in Urdu<span class="close">Delete</span></li>
-  <li>JavaScript Crash Course in Urdu<span class="close">Delete</span></li>
-  <li>jQuery Crash Course in Urdu<span class="close">Delete</span></li>
-  <li>jQuery Crash Course in Urdu<span class="close">Delete</span></li>
-  <li>PHP/MySQL Crash Course in Urdu<span class="close">Delete</span></li>
-</ul>
-<form action="" id="frmadd">
-    <div id="myDIV" class="header">
-        <h2 style="margin:5px">My To Do List</h2>
-        <input type="text" id="myInput" placeholder="Add Title...">
-        <span class="addBtn">Add Title</span>
-      </div>
-</form>
-<script type="text/javascript">
+    e.target.nextElementSibling.innerText = e.target.checked ? "Checked" :  'UnChecked'
 
-</script>
+          })
+         ul.addEventListener('click', function(e){
+            if( e.target.className ==  'close'){
+                var parent = e.target.parentElement;
+                if(parent.classList.contains('checked')){
+                    parent.classList.remove('checked');
+                }else{
+                    parent.classList.add('checked');
+                }
+                
+            }
+       })
+       document.forms['frmadd'].addEventListener('submit', function(e){
+           e.preventDefault();
+           var nli = document.createElement("li");
+           var txt = document.querySelector('#myInput').value;
+           if(txt != ''){
+            document.querySelector('#myInput').value = '';
+            nli.innerHTML = txt + '<span class="close">Delete</span>';
+            ul.appendChild(nli);
+           }
+           
+       })
+       document.querySelector('#mySearch').addEventListener('keyup', function(e){
+          var term = e.target.value.toLowerCase();
+          var lists = document.querySelectorAll("li");
+          lists.forEach(function(el){
+              var element = el.innerText.toLowerCase();
+              if(element.indexOf(term) != -1){
+                  el.style.display = 'block';
+              }else{
+                  el.style.display = 'none';
+              }
+          })
+       })
+            })
+           
+        </script>
+    </head>
+    <body>
+        <h1 id="title" class="title">Simple
+            <span class="xyz">TODO</span>
+            list App</h1>
+        <form action="" id="frmsearch">
+            <div id="myDIV" class="header">
+                <h2 style="margin:5px">Search From List</h2>
+                <input type="text" id="mySearch" placeholder="Search Title...">
+            </div>
+        </form>
 
-</body>
+        <ul id="myUL">
+            <li class="my">HTML5 Crash Course in Urdu<span class="close">Delete</span></li>
+            <li>CSS/CSS3 Crash Course in Urdu<span class="close">Delete</span></li>
+            <li>JavaScript Crash Course in Urdu<span class="close">Delete</span></li>
+            <li>jQuery Crash Course in Urdu<span class="close">Delete</span></li>
+            <li>PHP/MySQL Crash Course in Urdu<span class="close">Delete</span></li>
+        </ul>
+        <form action="" id="frmadd">
+            <label>
+                <input type="checkbox" id="myTxt" checked>
+                <span>Checked</span>
+            </label>
+            <div id="myDIV" class="header">
+                <h2 style="margin:5px">My To Do List</h2>
+                <input type="text" id="myInput" placeholder="Add Title...">
+                <button class="addBtn">Add Title</button>
+            </div>
+        </form>
+
+
+    </body>
 </html>
